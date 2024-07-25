@@ -37,16 +37,31 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
     }
   };
 
+  const adminClicked = () => {
+    props.setAdmin(true)
+    props.setLogin(true)
+  };
+
   return (
     <div className="login-box">
-      <h1>Login Page</h1>
-      <button
-        className="google-login-button"
-        onClick={() => signInWithGoogle()}
-        disabled={props.loggedIn}
-      >
-        Sign in with Google
-      </button>
+      <h1>CHS Peer Counseling Login Page</h1>
+      <div className="button-container">
+        <button
+          className="google-login-button"
+          onClick={() => signInWithGoogle()}
+          disabled={props.loggedIn}
+        >
+          Sign in with Google
+        </button>
+        
+        <button
+          className="admin-login-button"
+          onClick={() => adminClicked()}
+          disabled={props.loggedIn}
+        >
+          Sign in as Admin
+        </button>
+      </div>
     </div>
   );
 };
