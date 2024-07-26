@@ -6,6 +6,18 @@
     background-size: 600% 600%;
     animation: gradientAnimation 16s ease infinite;
   }
+
+  @keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
   
   .home-page h1 {
     font-family: 'Courier New', Courier, monospace;
@@ -23,8 +35,12 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bolder;
+    color: white;
   }
   
   .home-page button:hover {
-    background-color: #0056b3;
+    background-color: darkblue;
   }

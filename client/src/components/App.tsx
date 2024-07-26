@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import "../styles/App.css";
-import MapsGearup from "./HomePage";
+import HomePage from "./HomePage";
 import AuthRoute from "./auth/AuthRoute";
 
 
@@ -18,7 +18,7 @@ initializeApp(firebaseConfig);
 function App() {
   return (
     <div className="App">
-      <AuthRoute gatedContent={<MapsGearup />} />
+      <AuthRoute gatedContent={<HomePage />} />
     </div>
   );
 }

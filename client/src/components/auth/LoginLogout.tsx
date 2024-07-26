@@ -13,9 +13,7 @@ export interface ILoginPageProps {
 const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
   const auth = getAuth();
   const adminUsername = process.env.REACT_APP_ADMIN_USERNAME;
-  console.log(adminUsername)
   const adminPassword = process.env.REACT_APP_ADMIN_PASSWORD;
-
 
   const signInWithGoogle = async () => {
     try {
@@ -49,6 +47,11 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
   return (
     <div className="login-box">
       <h1>CHS Peer Counseling: Login Page</h1>
+
+      <div className="image">
+        <img src="https://cmsv2-assets.apptegy.net/uploads/21138/logo/23952/Clover_HS_Logo.png"></img>
+      </div>
+      
       <div className="button-container">
         <button
           className="google-login-button"

@@ -44,6 +44,10 @@
     height: 30px;
 }
 
+.admin-login button:hover {
+    background-color: darkblue;
+}
+
 .login-box h1 {
     font-family: 'Courier New', Courier, monospace;
     font-size: 35px; 
@@ -57,3 +61,4 @@
     color: #ffffff;
     font-weight: bolder;
 }
+

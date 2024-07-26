@@ -1,6 +1,8 @@
 import React from 'react';
 import { useState } from "react";
 import "../../styles/AdminDashboard.css"
+import { getAdminLogin } from '../../utils/api';
+import { useEffect} from "react";
 
 
 const AdminDashboard: React.FunctionComponent = () => {
@@ -8,16 +10,32 @@ const AdminDashboard: React.FunctionComponent = () => {
   const [password, setPassword] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [adminCredentials, setAdminCredentials] = useState<{ user: string; password: string } | null>(null);
+
+  // Fetch admin login information once when the component mounts
+  useEffect(() => {
+    const fetchAdminCredentials = async () => {
+      try {
+        const loginInfo = await getAdminLogin();
+        const [adminPassword, adminUser] = loginInfo.loginInfo.split(":");
+        setAdminCredentials({ user: adminUser, password: adminPassword });
+      } catch (error) {
+        console.error('Failed to fetch admin credentials:', error);
+      }
+    };
+
+    fetchAdminCredentials();
+  }, []);
 
   const handleLogin = () => {
-    const adminUsername = process.env.REACT_APP_ADMIN_USERNAME;
-    const adminPassword = process.env.REACT_APP_ADMIN_PASSWORD;
-
-    if (username === "admin" && password === "password") {
-      setIsAuthenticated(true);
-      setErrorMessage('');
-    } else {
-      setErrorMessage('Invalid username or password. Please try again.');
+    if (adminCredentials) {
+      const { user, password } = adminCredentials;
+      if (user === username && password === password) {
+        setIsAuthenticated(true);
+        setErrorMessage('');
+      } else {
+        setErrorMessage('Invalid username or password. Please try again.');
+      }
     }
   };
 

@@ -35,3 +35,9 @@ export async function clearUser(uid: string = getLoginCookie() || "") {
     uid: uid,
   });
 }
+
+export async function getAdminLogin() {
+  return await queryAPI("admin-login", {
+    uid: "admin",
+  });
+}

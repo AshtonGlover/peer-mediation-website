@@ -20,7 +20,7 @@
 }
 
 .button-container {
-    margin-top: 230px; 
+    margin-top: 8%; 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -59,7 +59,7 @@
 }
 
 .google-login-button:hover, .admin-login-button:hover {
-    background-color: #357ae8;
+    background-color: darkblue;
 }
 
 @keyframes gradientAnimation {
@@ -76,7 +76,7 @@
 
 .admin-login h1 {
     font-family: 'Courier New', Courier, monospace;
-    font-size: 35px; 
+    font-size: 30px; 
     color: #ffffff;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
@@ -102,4 +102,9 @@
 
 .logout-box button:hover {
     background-color: #434141;
+}
+
+img {
+    margin-top: 5%;
+    width: 23%;
 }
