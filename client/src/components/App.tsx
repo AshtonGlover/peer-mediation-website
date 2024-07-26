@@ -1,11 +1,8 @@
 import { initializeApp } from "firebase/app";
 import "../styles/App.css";
-import MapsGearup from "./MapsGearup";
+import MapsGearup from "./HomePage";
 import AuthRoute from "./auth/AuthRoute";
 
-// REMEMBER TO PUT YOUR API KEY IN A FOLDER THAT IS GITIGNORED!!
-// (for instance, /src/private/api_key.tsx)
-// import {API_KEY} from "./private/api_key"
 
 const firebaseConfig = {
   apiKey: process.env.API_KEY,
@@ -13,7 +10,7 @@ const firebaseConfig = {
   projectId: process.env.PROJECT_ID,
   storageBucket: process.env.STORAGE_BUCKET,
   messagingSenderId: process.env.MESSAGING_SENDER_ID,
-  appId: process.env.APP_ID,
+  appId: process.env.APP_ID
 };
 
 initializeApp(firebaseConfig);

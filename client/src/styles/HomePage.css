@@ -1,0 +1,30 @@
+.home-page {
+    background-color: #48474a;
+    padding: 20px;
+    min-height: 100vh;
+    background: linear-gradient(270deg, #ff6ec4, #7873f5, #4fc3f7);
+    background-size: 600% 600%;
+    animation: gradientAnimation 16s ease infinite;
+  }
+  
+  .home-page h1 {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 35px; 
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Style the buttons */
+  .home-page button {
+    margin: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .home-page button:hover {
+    background-color: #0056b3;
+  }

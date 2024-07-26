@@ -1,41 +1,89 @@
 import React from 'react';
+import { useState } from "react";
+import "../../styles/AdminDashboard.css"
+
 
 const AdminDashboard: React.FunctionComponent = () => {
-  // Sample data for demonstration purposes
-  const userCount = 120;
-  const recentActivity = [
-    { user: 'John Doe', action: 'Logged in', timestamp: '2024-07-23T12:34:56Z' },
-    { user: 'Jane Smith', action: 'Updated profile', timestamp: '2024-07-23T13:14:22Z' },
-    { user: 'Alex Johnson', action: 'Logged out', timestamp: '2024-07-23T14:10:30Z' },
-  ];
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleLogin = () => {
+    const adminUsername = process.env.REACT_APP_ADMIN_USERNAME;
+    const adminPassword = process.env.REACT_APP_ADMIN_PASSWORD;
+
+    if (username === "admin" && password === "password") {
+      setIsAuthenticated(true);
+      setErrorMessage('');
+    } else {
+      setErrorMessage('Invalid username or password. Please try again.');
+    }
+  };
+
+  if (isAuthenticated) {
+    // Sample data for demonstration purposes
+    const userCount = 100; // Replace with actual data
+    const recentActivity = [
+      { user: 'User1', action: 'logged in', timestamp: Date.now() - 10000 },
+      { user: 'User2', action: 'logged out', timestamp: Date.now() - 50000 },
+      // Add more activity as needed
+    ];
+
+    return (
+      <div className="admin-dashboard">
+        <h1>Admin Dashboard</h1>
+
+        <section className="welcome-message">
+          <h2>Welcome, Admin!</h2>
+          <p>Here’s an overview of the latest activity and user statistics.</p>
+        </section>
+
+        <section className="user-stats">
+          <h2>User Statistics</h2>
+          <p>Total Users: {userCount}</p>
+          {/* Add more statistics as needed */}
+        </section>
+
+        <section className="recent-activity">
+          <h2>Recent Activity</h2>
+          <ul>
+            {recentActivity.map((activity, index) => (
+              <li key={index}>
+                <strong>{activity.user}</strong> {activity.action} at {new Date(activity.timestamp).toLocaleString()}
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
+    );
+  }
 
   return (
-    <div className="admin-dashboard">
-      <h1>Admin Dashboard</h1>
-
-      <section className="welcome-message">
-        <h2>Welcome, Admin!</h2>
-        <p>Here’s an overview of the latest activity and user statistics.</p>
-      </section>
-
-      <section className="user-stats">
-        <h2>User Statistics</h2>
-        <p>Total Users: {userCount}</p>
-        {/* Add more statistics as needed */}
-      </section>
-
-      <section className="recent-activity">
-        <h2>Recent Activity</h2>
-        <ul>
-          {recentActivity.map((activity, index) => (
-            <li key={index}>
-              <strong>{activity.user}</strong> {activity.action} at {new Date(activity.timestamp).toLocaleString()}
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* Additional sections or features can be added here */}
+    <div className="admin-login">
+      <h1>Admin Login</h1>
+      <div className="login-form">
+        <div className="form-group">
+          <label htmlFor="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+        <button onClick={handleLogin}>Login</button>
+      </div>
     </div>
   );
 };
