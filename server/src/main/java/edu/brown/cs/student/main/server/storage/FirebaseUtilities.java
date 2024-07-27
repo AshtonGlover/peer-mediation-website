@@ -22,15 +22,10 @@ import java.util.concurrent.ExecutionException;
 public class FirebaseUtilities implements StorageInterface {
 
   public FirebaseUtilities() throws IOException {
-    // TODO: FIRESTORE PART 0:
-    // Create /resources/ folder with firebase_config.json and
-    // add your admin SDK from Firebase. see:
-    // https://docs.google.com/document/d/10HuDtBWjkUoCaVj_A53IFm5torB_ws06fW3KYFZqKjc/edit?usp=sharing
+
     String workingDirectory = System.getProperty("user.dir");
     Path firebaseConfigPath =
         Paths.get(workingDirectory, "src", "main", "resources", "firebase_config.json");
-    // ^-- if your /resources/firebase_config.json exists but is not found,
-    // try printing workingDirectory and messing around with this path.
 
     FileInputStream serviceAccount = new FileInputStream(firebaseConfigPath.toString());
 
@@ -48,16 +43,34 @@ public class FirebaseUtilities implements StorageInterface {
     if (uid == null || collection_id == null) {
       throw new IllegalArgumentException("getCollection: uid and/or collection_id cannot be null");
     }
-    // QUESTION TO TIM: should we make this an exercise too?
-
-    // gets all documents in the collection 'collection_id' for user 'uid'
 
     Firestore db = FirestoreClient.getFirestore();
-    // 1: Make the data payload to add to your collection
     CollectionReference dataRef = db.collection("users").document(uid).collection(collection_id);
 
     // 2: Get pin documents
     QuerySnapshot dataQuery = dataRef.get().get();
+
+    // 3: Get data from document queries
+    List<Map<String, Object>> data = new ArrayList<>();
+    for (QueryDocumentSnapshot doc : dataQuery.getDocuments()) {
+      data.add(doc.getData());
+    }
+
+    return data;
+  }
+
+  public List<Map<String, Object>> getCookies(String uid, String collection_id)
+          throws InterruptedException, ExecutionException, IllegalArgumentException {
+    if (uid == null || collection_id == null) {
+      throw new IllegalArgumentException("getCollection: uid and/or collection_id cannot be null");
+    }
+
+    Firestore db = FirestoreClient.getFirestore();
+    CollectionReference dataRef = db.collection("users");
+
+    // 2: Get pin documents
+    ApiFuture<QuerySnapshot> future = dataRef.get();
+    QuerySnapshot dataQuery = future.get();
 
     // 3: Get data from document queries
     List<Map<String, Object>> data = new ArrayList<>();
@@ -75,12 +88,7 @@ public class FirebaseUtilities implements StorageInterface {
       throw new IllegalArgumentException(
           "addDocument: uid, collection_id, doc_id, or data cannot be null");
     }
-    // adds a new document 'doc_name' to colleciton 'collection_id' for user 'uid'
-    // with data payload 'data'.
 
-    // TODO: FIRESTORE PART 1:
-    // use the guide below to implement this handler
-    // - https://firebase.google.com/docs/firestore/quickstart#add_data
 
     Firestore db = FirestoreClient.getFirestore();
     // 1: Get a ref to the collection that you created

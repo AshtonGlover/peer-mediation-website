@@ -12,7 +12,6 @@ const AdminDashboard: React.FunctionComponent = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [adminCredentials, setAdminCredentials] = useState<{ user: string; password: string } | null>(null);
 
-  // Fetch admin login information once when the component mounts
   useEffect(() => {
     const fetchAdminCredentials = async () => {
       try {
@@ -75,35 +74,35 @@ const AdminDashboard: React.FunctionComponent = () => {
         </section>
       </div>
     );
-  }
-
-  return (
-    <div className="admin-login">
-      <h1>Admin Login</h1>
-      <div className="login-form">
-        <div className="form-group">
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
+  } else {
+    return (
+      <div className="admin-login">
+        <h1>Admin Login</h1>
+        <div className="login-form">
+          <div className="form-group">
+            <label htmlFor="username">Username:</label>
+            <input
+              type="text"
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
+          <button onClick={handleLogin}>Login</button>
         </div>
-        <div className="form-group">
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
-        <button onClick={handleLogin}>Login</button>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default AdminDashboard;

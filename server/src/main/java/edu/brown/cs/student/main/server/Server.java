@@ -44,6 +44,8 @@ public class Server {
       Spark.init();
       Spark.awaitInitialization();
 
+      //TODO: add cookies like a user under users collection and just add each cookie like a word
+
       System.out.println("Server started at http://localhost:" + port);
     } catch (IOException e) {
       e.printStackTrace();

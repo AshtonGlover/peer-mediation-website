@@ -19,9 +19,9 @@ function AuthRoute(props: AuthRouteProps) {
 
       {loggedIn ? (
         isAdmin ? (
-          <AdminDashboard />  // Render admin component if user is an admin
+          <AdminDashboard /> 
         ) : (
-          <>{props.gatedContent}</>  // Render gated content for non-admin users
+          <>{props.gatedContent}</> 
         )
       ) : null}
     </>

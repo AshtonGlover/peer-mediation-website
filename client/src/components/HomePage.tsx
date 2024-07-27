@@ -1,5 +1,5 @@
 import { useState } from "react";
-import FirestoreDemo from "./FirestoreDemo";
+import FirestoreDemo from "./AboutUs";
 import "../styles/HomePage.css";
 import Chat from "./Chat";
 
@@ -24,7 +24,7 @@ export default function MapsGearup() {
       <div className="home-page">
         <h1 aria-label="Page Title">About Us</h1>
         
-          {section === Section.FIRESTORE_DEMO ? <FirestoreDemo /> : <Chat />}
+          {section === Section.FIRESTORE_DEMO ? <FirestoreDemo /> : <Chat isAdmin = {false} uid = {null}/>}
 
           <div className="chat-button">
             {section === Section.FIRESTORE_DEMO ? 
@@ -36,7 +36,7 @@ export default function MapsGearup() {
   } else {
     return (
       <div className="home-page">
-        <Chat />
+        <Chat isAdmin = {false} uid = {null}/>
         <button onClick={() => setChatButton()}> Back ⬅️ </button>
       </div>
     );
