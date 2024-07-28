@@ -8,6 +8,13 @@
     align-items: center;
 }
 
+.admin-dashboard {
+    background: linear-gradient(270deg, #ff6ec4, #7873f5, #4fc3f7);
+    background-size: 600% 600%;
+    animation: gradientAnimation 16s ease infinite;
+    min-height: 100vh;
+}
+
 @keyframes gradientAnimation {
     0% {
         background-position: 0% 50%;

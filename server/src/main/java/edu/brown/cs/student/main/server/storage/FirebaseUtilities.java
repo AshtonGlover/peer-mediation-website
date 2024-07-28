@@ -10,6 +10,8 @@ import com.google.cloud.firestore.QuerySnapshot;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
+import kotlin.text.UStringsKt;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -97,6 +99,25 @@ public class FirebaseUtilities implements StorageInterface {
 
     // 2: Write data to the collection ref
     collectionRef.document(doc_id).set(data);
+  }
+
+
+  @Override
+  public void removeDocument(String uid, String collection_id, String doc_id, Map<String, Object> data)
+          throws IllegalArgumentException {
+    if (uid == null || collection_id == null || doc_id == null || data == null) {
+      throw new IllegalArgumentException(
+              "addDocument: uid, collection_id, doc_id, or data cannot be null");
+    }
+
+
+    Firestore db = FirestoreClient.getFirestore();
+    // 1: Get a ref to the collection that you created
+    CollectionReference collectionRef =
+            db.collection("users").document("cookies").collection("cookies");
+
+    // 2: Write data to the collection ref
+    collectionRef.document(doc_id).delete();
   }
 
   // clears the collections inside of a specific user.

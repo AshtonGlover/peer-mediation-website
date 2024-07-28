@@ -25,7 +25,7 @@ public class AdminLoginHandler implements Route {
             String uid = request.queryParams("uid");
 
             System.out.println("Retrieving username for admin");
-            List<Map<String, Object>> loginInfo = this.storageHandler.getCollection(uid, "loginInfo");
+            List<Map<String, Object>> loginInfo = this.storageHandler.getCollection(uid,"loginInfo");
 
             String username = loginInfo.get(0).get("password").toString();
             String password = loginInfo.get(1).get("username").toString();

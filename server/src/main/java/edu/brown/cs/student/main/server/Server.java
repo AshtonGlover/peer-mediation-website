@@ -2,13 +2,12 @@ package edu.brown.cs.student.main.server;
 
 import static spark.Spark.after;
 
-import edu.brown.cs.student.main.server.handlers.AddWordHandler;
-import edu.brown.cs.student.main.server.handlers.AdminLoginHandler;
-import edu.brown.cs.student.main.server.handlers.ClearUserHandler;
-import edu.brown.cs.student.main.server.handlers.ListWordsHandler;
+import edu.brown.cs.student.main.server.handlers.*;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import java.io.IOException;
+import java.util.HashMap;
+
 import spark.Filter;
 import spark.Spark;
 
@@ -34,6 +33,8 @@ public class Server {
       Spark.get("list-words", new ListWordsHandler(firebaseUtils));
       Spark.get("clear-user", new ClearUserHandler(firebaseUtils));
       Spark.get("admin-login", new AdminLoginHandler(firebaseUtils));
+      Spark.get("add-cookie", new AddCookieHandler(firebaseUtils));
+      Spark.get("get-cookies", new GetCookiesHandler(firebaseUtils));
 
       Spark.notFound(
           (request, response) -> {

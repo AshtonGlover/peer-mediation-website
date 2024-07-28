@@ -1,8 +1,9 @@
 import React from 'react';
 import { useState } from "react";
 import "../../styles/AdminDashboard.css"
-import { getAdminLogin } from '../../utils/api';
+import { getAdminLogin, getCookies } from '../../utils/api';
 import { useEffect} from "react";
+import Chat from "../Chat";
 
 
 const AdminDashboard: React.FunctionComponent = () => {
@@ -11,6 +12,14 @@ const AdminDashboard: React.FunctionComponent = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [adminCredentials, setAdminCredentials] = useState<{ user: string; password: string } | null>(null);
+  const [cookies, setCookies] = useState<string[]>([]);
+  const [activeChat, setActiveChat] = useState("");
+
+  useEffect(() => {
+      getCookies().then((data) => {
+          setCookies(data.cookies)
+      });
+  }, []);
 
   useEffect(() => {
     const fetchAdminCredentials = async () => {
@@ -39,39 +48,21 @@ const AdminDashboard: React.FunctionComponent = () => {
   };
 
   if (isAuthenticated) {
-    // Sample data for demonstration purposes
-    const userCount = 100; // Replace with actual data
-    const recentActivity = [
-      { user: 'User1', action: 'logged in', timestamp: Date.now() - 10000 },
-      { user: 'User2', action: 'logged out', timestamp: Date.now() - 50000 },
-      // Add more activity as needed
-    ];
-
+    if (activeChat !== ""){
+      return <Chat isAdmin={true} uid={activeChat} />;
+    }
     return (
       <div className="admin-dashboard">
         <h1>Admin Dashboard</h1>
-
-        <section className="welcome-message">
-          <h2>Welcome, Admin!</h2>
-          <p>Here’s an overview of the latest activity and user statistics.</p>
-        </section>
-
-        <section className="user-stats">
-          <h2>User Statistics</h2>
-          <p>Total Users: {userCount}</p>
-          {/* Add more statistics as needed */}
-        </section>
-
-        <section className="recent-activity">
-          <h2>Recent Activity</h2>
-          <ul>
-            {recentActivity.map((activity, index) => (
-              <li key={index}>
-                <strong>{activity.user}</strong> {activity.action} at {new Date(activity.timestamp).toLocaleString()}
-              </li>
-            ))}
-          </ul>
-        </section>
+        <div className="emails">
+          {cookies.map((cookie, index) => (
+            <div key={index} className="message">
+              <button onClick={() => setActiveChat(cookie.split("@")[0])}>
+                {cookie}
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
     );
   } else {

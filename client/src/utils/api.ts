@@ -17,16 +17,22 @@ async function queryAPI(
   return response.json();
 }
 
-export async function addWord(word: string) {
+export async function addWord(uid: string, word: string) {
   return await queryAPI("add-word", {
-    uid: getLoginCookie() || "",
+    uid: uid,
     word: word,
   });
 }
 
-export async function getWords() {
+export async function getWords(uid: string) {
   return await queryAPI("list-words", {
-    uid: getLoginCookie() || "",
+    uid: uid,
+  });
+}
+
+export async function getCookies() {
+  return await queryAPI("get-cookies", {
+    uid: "cookies"
   });
 }
 
@@ -39,5 +45,11 @@ export async function clearUser(uid: string = getLoginCookie() || "") {
 export async function getAdminLogin() {
   return await queryAPI("admin-login", {
     uid: "admin",
+  });
+}
+
+export async function addCookie(cookie: string) {
+  return await queryAPI("add-cookie", {
+    cookie: cookie,
   });
 }

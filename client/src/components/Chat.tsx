@@ -1,7 +1,7 @@
 import React from 'react';
 import "../styles/Chat.css"
 import { useState, useEffect } from 'react';
-import {addWord, getWords} from "../utils/api"
+import {addWord, getWords, addCookie} from "../utils/api"
 import { getLoginCookie } from '../utils/cookie';
 
 export interface adminData {
@@ -15,10 +15,10 @@ export interface adminData {
 const Chat: React.FunctionComponent<adminData> = (props) => {
     const [messages, setMessages] = useState<string[]>([]);
 
-    const USER_ID = getLoginCookie() || "";
+    const USER_ID = (props.uid === null) ? getLoginCookie() || "" : props.uid;
 
     useEffect(() => {
-        getWords().then((data) => {
+        getWords(USER_ID).then((data) => {
             setMessages(data.words)
         });
     }, []);
@@ -31,7 +31,11 @@ const Chat: React.FunctionComponent<adminData> = (props) => {
             newMessage += ": " + USER_ID
         }
         setMessages([...messages, newMessage]);
-        await addWord(newMessage);
+
+        if (props.uid === null) {
+            await addCookie(USER_ID);
+        } 
+        await addWord(USER_ID, newMessage);
     };
 
     return (

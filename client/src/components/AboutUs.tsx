@@ -4,13 +4,7 @@ import { getLoginCookie } from "../utils/cookie";
 import "../styles/AboutUs.css"
 
 export default function FirestoreDemo() {
-  const [words, setWords] = useState<string[]>([]);
-
-  useEffect(() => {
-    getWords().then((data) => {
-      setWords(data.words);
-    });
-  }, []);
+  
 
   return (
     <div className="firestore-demo">
@@ -24,7 +18,7 @@ They were placed in handcuffs by FBI agents during an operation culminating at a
       <button
         onClick={async () => {
           // - query the backend to clear the user's words
-          setWords([]);
+       
           // - clear the user's words in the database
           await clearUser();
         }}
