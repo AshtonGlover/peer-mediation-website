@@ -1,3 +1,3 @@
-# peer-counseling-website
+# peer-mediation-website
 
 This is the official website 
