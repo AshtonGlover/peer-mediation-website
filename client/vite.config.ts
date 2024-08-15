@@ -19,6 +19,8 @@ export default defineConfig(({ mode }) => {
       "process.env.APP_ID": JSON.stringify(env.APP_ID),
       "process.env.MEASUREMENT_ID": JSON.stringify(env.MEASUREMENT_ID),
       "process.env.MAPBOX_TOKEN": JSON.stringify(env.MAPBOX_TOKEN),
+      "process.env.ADMIN_USERNAME": JSON.stringify(env.ADMIN_USERNAME),
+      "process.env.ADMIN_PASSWORD": JSON.stringify(env.ADMIN_PASSWORD)
     },
     plugins: [react()],
     server: {

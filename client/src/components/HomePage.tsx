@@ -28,8 +28,8 @@ export default function MapsGearup() {
 
           <div className="chat-button">
             {section === Section.FIRESTORE_DEMO ? 
-            <button onClick={() => setChatButton()}> Chat 💬 </button>:
-            <button onClick={() => setChatButton()}> Back ⬅️ </button>}
+            <button onClick={() => setChatButton()}> Chat </button>:
+            <button onClick={() => setChatButton()}> Back </button>}
           </div>
       </div>
     );
@@ -37,7 +37,7 @@ export default function MapsGearup() {
     return (
       <div className="home-page">
         <Chat isAdmin = {false} uid = {null}/>
-        <button onClick={() => setChatButton()}> Back ⬅️ </button>
+        <button onClick={() => setChatButton()}> Back </button>
       </div>
     );
   }

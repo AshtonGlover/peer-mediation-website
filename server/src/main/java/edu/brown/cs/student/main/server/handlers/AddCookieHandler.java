@@ -3,9 +3,12 @@ package edu.brown.cs.student.main.server.handlers;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import io.netty.handler.ssl.ApplicationProtocolConfig;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -38,6 +41,27 @@ public class AddCookieHandler implements Route {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm");
             String formattedDateTime = now.format(formatter);
 
+            Integer hour = Integer.parseInt(formattedDateTime.split(" ")[1].split(":")[0]);
+
+            String amPm;
+
+            if (hour > 12) {
+                hour -= 12;
+                amPm = "PM";
+            } else if (hour == 12) {
+                amPm = "PM";
+            } else if (hour == 0) {
+                hour = 12;
+                amPm = "AM";
+            } else {
+                amPm = "AM";
+            }
+
+            String hourString = hour.toString();
+
+            String[] splitDate = formattedDateTime.split(" ");
+
+            formattedDateTime = splitDate[0] + " " + hourString + ":" + splitDate[1].split(":")[1] + " " + amPm;
             System.out.println(formattedDateTime);
 
             Map<String, Object> data = new HashMap<>();

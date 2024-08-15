@@ -32,7 +32,6 @@ public class Server {
       Spark.get("add-word", new AddWordHandler(firebaseUtils));
       Spark.get("list-words", new ListWordsHandler(firebaseUtils));
       Spark.get("clear-user", new ClearUserHandler(firebaseUtils));
-      Spark.get("admin-login", new AdminLoginHandler(firebaseUtils));
       Spark.get("add-cookie", new AddCookieHandler(firebaseUtils));
       Spark.get("get-cookies", new GetCookiesHandler(firebaseUtils));
 
@@ -44,8 +43,6 @@ public class Server {
           });
       Spark.init();
       Spark.awaitInitialization();
-
-      //TODO: add cookies like a user under users collection and just add each cookie like a word
 
       System.out.println("Server started at http://localhost:" + port);
     } catch (IOException e) {

@@ -3,13 +3,11 @@ import "../styles/Chat.css"
 import { useState, useEffect } from 'react';
 import {addWord, getWords, addCookie} from "../utils/api"
 import { getLoginCookie } from '../utils/cookie';
+import AdminDashboard from './auth/AdminDashboard'
 
 export interface adminData {
     isAdmin: boolean;
     uid: string | null;
-    //if uid is not null, that means that that is the users cookie we want to access chat history from
-    //from the admin side, click a button with cookie "fasjkdfksdjf" then that is the uid we should be 
-    //querying the backend with
 }
 
 const Chat: React.FunctionComponent<adminData> = (props) => {
@@ -26,9 +24,9 @@ const Chat: React.FunctionComponent<adminData> = (props) => {
 
     const handleSendMessage = async (newMessage: string) => {
         if (props.isAdmin) {
-            newMessage += ": " + "ADMIN"
+            newMessage = "Peer Mediator: " + newMessage;
         } else {
-            newMessage += ": " + USER_ID
+            newMessage = "Student User: " + newMessage;
         }
         setMessages([...messages, newMessage]);
 
@@ -61,7 +59,7 @@ const Chat: React.FunctionComponent<adminData> = (props) => {
                     handleSendMessage(newMessage);
                     var temp = document.getElementById("message") as HTMLInputElement;
                     temp.value = "";
-                }}>Send 🛩️</button>
+                }}>Send</button>
             </div>
         </div>
     );

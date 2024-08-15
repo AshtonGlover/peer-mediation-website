@@ -42,12 +42,6 @@ export async function clearUser(uid: string = getLoginCookie() || "") {
   });
 }
 
-export async function getAdminLogin() {
-  return await queryAPI("admin-login", {
-    uid: "admin",
-  });
-}
-
 export async function addCookie(cookie: string) {
   return await queryAPI("add-cookie", {
     cookie: cookie,
