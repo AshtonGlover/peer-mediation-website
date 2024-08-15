@@ -39,13 +39,22 @@ const Chat: React.FunctionComponent<adminData> = (props) => {
     return (
         <div className="chat-page">
             <h1>Chat Page</h1>
-            <div className="text-scroll">
-                {messages.map((message, index) => (
-                    <div key={index} className="message">
-                        {message}
-                    </div>
-                ))}
-            </div>
+                <div className="text-scroll">
+                    {messages.map((message, index) => {
+                        let backgroundColor;
+
+                        if (message.includes("Peer Mediator")) {
+                            backgroundColor = '#007bff';
+                        } else {
+                            backgroundColor = '#38cba0';
+                        }
+                        return (
+                            <div key={index} className="message" style={{ backgroundColor: backgroundColor }}>
+                                {message}
+                            </div>
+                        );
+                    })}
+                </div>
             <div className="form-group">
                 <label htmlFor="message">Message: </label>
                 <input

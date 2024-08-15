@@ -60,7 +60,6 @@ public class AddCookieHandler implements Route {
             String[] splitDate = formattedDateTime.split(" ");
 
             formattedDateTime = splitDate[0] + " " + hourString + ":" + splitDate[1].split(":")[1] + " " + amPm;
-            System.out.println(formattedDateTime);
 
             Map<String, Object> data = new HashMap<>();
             data.put("cookie", cookie + "@" + formattedDateTime);
@@ -69,7 +68,7 @@ public class AddCookieHandler implements Route {
 
             List<Map<String, Object>> cookieCollection = this.storageHandler.getCollection(uid, "cookies");
 
-            int cookieCount = cookieCollection.size();
+            int cookieCount = cookieCollection.size() + 1000000;
             String cookieId = "cookie-" + cookieCount;
 
             // use the storage handler to add the document to the database

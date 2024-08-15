@@ -38,22 +38,15 @@
     padding: 10px;
 }
 
-.message, .adminMessage {
+.message {
     margin-bottom: 10px;
     border: 1px solid #ccc; 
     padding: 10px;  
     margin: 5px 0;  
-    border-radius: 10px; 
+    border-radius: 6px; 
     width: 60%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.message {
-    background-color: #007bff;
-}
-
-.adminMessage {
-    background-color: green;
+    text-align: left;
 }
 
 input[type="text"] {

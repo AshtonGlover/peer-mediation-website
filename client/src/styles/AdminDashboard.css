@@ -53,13 +53,13 @@
     margin: 10px 0;
     text-align: left;
     box-sizing: border-box;
-    height: auto; /* Adjusted to auto for better height */
+    height: auto; 
     border-radius: 0px;
-    padding: 10px; /* Ensure padding for better button appearance */
-    background-color: #007bff; /* Ensure consistent background color */
-    color: white; /* Ensure text color contrast */
-    border: none; /* Remove default border */
-    cursor: pointer; /* Change cursor to pointer on hover */
+    padding: 10px; 
+    background-color: #007bff; 
+    color: white; 
+    border: none; 
+    cursor: pointer; 
 }
 
 .admin-login button {
