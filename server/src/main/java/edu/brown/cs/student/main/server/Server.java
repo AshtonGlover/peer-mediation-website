@@ -6,7 +6,6 @@ import edu.brown.cs.student.main.server.handlers.*;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import java.io.IOException;
-import java.util.HashMap;
 
 import spark.Filter;
 import spark.Spark;

@@ -51,7 +51,8 @@ const AdminDashboard: React.FunctionComponent = () => {
           {cookies.map((cookie, index) => (
             <div key={index} className="message">
               <button className = "email" onClick={() => setActiveChat(cookie.split("@")[0])}>
-                {"New message at " + cookie.split("@")[1]}
+                {"New message on " + cookie.split("@")[1].split(" ")[0] + " at " + 
+                cookie.split("@")[1].split(" ")[1] + " " + cookie.split("@")[1].split(" ")[2]}
               </button>
             </div>
           ))}
