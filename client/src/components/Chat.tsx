@@ -1,6 +1,6 @@
 import React from 'react';
 import "../styles/Chat.css"
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {addWord, getWords, addCookie} from "../utils/api"
 import { getLoginCookie } from '../utils/cookie';
 import AdminDashboard from './auth/AdminDashboard'
@@ -21,6 +21,13 @@ const Chat: React.FunctionComponent<adminData> = (props) => {
         });
     }, []);
 
+    const scroll = () => {
+        let scrollBox = document.getElementById("text-scroll");
+                        
+        if (scrollBox) {
+            scrollBox.scrollTop = scrollBox.scrollHeight;
+        }
+    };
 
     const handleSendMessage = async (newMessage: string) => {
         if (props.isAdmin) {
@@ -39,7 +46,7 @@ const Chat: React.FunctionComponent<adminData> = (props) => {
     return (
         <div className="chat-page">
             <h1>Chat Page</h1>
-                <div className="text-scroll">
+                <div className="text-scroll" id="text-scroll">
                     {messages.map((message, index) => {
                         let backgroundColor;
 
@@ -48,6 +55,9 @@ const Chat: React.FunctionComponent<adminData> = (props) => {
                         } else {
                             backgroundColor = '#38cba0';
                         }
+
+                        scroll();
+
                         return (
                             <div key={index} className="message" style={{ backgroundColor: backgroundColor }}>
                                 {message}
@@ -58,17 +68,28 @@ const Chat: React.FunctionComponent<adminData> = (props) => {
             <div className="form-group">
                 <label htmlFor="message">Message: </label>
                 <input
+                    placeholder='Type message here'
                     type="text"
                     id="message"
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                            document.getElementById('send-button')?.click()
+                        }
+                    }}
                 />
-                <button onClick={() => {
-                    const newMessage = (
-                        document.getElementById("message") as HTMLInputElement
-                    ).value;
-                    handleSendMessage(newMessage);
-                    var temp = document.getElementById("message") as HTMLInputElement;
-                    temp.value = "";
-                }}>Send</button>
+                <button
+                    id='send-button'
+                    onClick={() => {
+                        const newMessage = (document.getElementById("message") as HTMLInputElement).value;
+                        if (newMessage === "") {
+                            return
+                        }
+                        handleSendMessage(newMessage);
+                        var temp = document.getElementById("message") as HTMLInputElement;
+                        temp.value = "";
+                        scroll();
+                    }}
+                >Send</button>
             </div>
         </div>
     );

@@ -2,7 +2,6 @@ import { initializeApp } from "firebase/app";
 import "../styles/App.css";
 import HomePage from "./HomePage";
 import AuthRoute from "./auth/AuthRoute";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 const firebaseConfig = {
   apiKey: process.env.API_KEY,

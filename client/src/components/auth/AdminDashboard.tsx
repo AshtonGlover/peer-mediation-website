@@ -4,6 +4,7 @@ import "../../styles/AdminDashboard.css"
 import { getCookies } from '../../utils/api';
 import { useEffect} from "react";
 import Chat from "../Chat";
+import {addToMap, getHasReplied} from "../CookieMap";
 
 enum Section {
   ADMIN_DASHBOARD = "ADMIN_DASHBOARD",
@@ -16,13 +17,20 @@ const AdminDashboard: React.FunctionComponent = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [cookies, setCookies] = useState<string[]>([]);
+  const [hasReplied, setHasReplied] = useState<boolean[]>([]);
   const [activeChat, setActiveChat] = useState("");
 
   useEffect(() => {
       getCookies().then((data) => {
-          setCookies(data.cookies)
+          setCookies(data.cookies);
+          setHasReplied(data.hasReplied);
       });
   }, []);
+
+  const handleBackPressed = () => {
+    getCookies().then(data => setHasReplied(data.hasReplied));
+    setActiveChat("");
+  };
 
   const handleLogin = () => {
     if (username === process.env.ADMIN_USERNAME && password === process.env.ADMIN_PASSWORD) {
@@ -33,13 +41,14 @@ const AdminDashboard: React.FunctionComponent = () => {
     }
   };
 
+
   if (isAuthenticated) {
     if (activeChat !== ""){
       return(
         <div>
           <Chat isAdmin={true} uid={activeChat} />
           <div className = "button-page">
-            <button className = "back-button" onClick={() => setActiveChat("")}> Back </button>
+            <button className = "back-button" onClick={() => handleBackPressed()}> Back </button>
           </div>
         </div>
       );
@@ -48,14 +57,29 @@ const AdminDashboard: React.FunctionComponent = () => {
       <div className="admin-dashboard">
         <h1>Admin Dashboard</h1>
         <div className="emails">
-          {cookies.map((cookie, index) => (
-            <div key={index} className="message">
-              <button className = "email" onClick={() => setActiveChat(cookie.split("@")[0])}>
-                {"New message on " + cookie.split("@")[1].split(" ")[0] + " at " + 
-                cookie.split("@")[1].split(" ")[1] + " " + cookie.split("@")[1].split(" ")[2]}
-              </button>
-            </div>
-          ))}
+          {cookies.map((cookie, index) => {
+            let prefix;
+            let backgroundColor;
+            if (hasReplied[index]) {
+              prefix = "Replied";
+              backgroundColor = "#007bff";
+            } else {
+              prefix = "No Reply";
+              backgroundColor = "#ff474c";
+            }
+
+            return (
+              <div key={index} className="message">
+                <button 
+                  style={{ backgroundColor: backgroundColor }} 
+                  className = "email" 
+                  onClick={() => setActiveChat(cookie.split("@")[0])}>
+                    {prefix + ": New message on " + cookie.split("@")[1].split(" ")[0] + " at " + 
+                    cookie.split("@")[1].split(" ")[1] + " " + cookie.split("@")[1].split(" ")[2]}
+                </button>
+              </div>
+            );
+          })}
         </div>
       </div>
     );
@@ -67,6 +91,7 @@ const AdminDashboard: React.FunctionComponent = () => {
           <div className="form-group">
             <label htmlFor="username">Username:</label>
             <input
+              className="username-input"
               type="text"
               id="username"
               value={username}

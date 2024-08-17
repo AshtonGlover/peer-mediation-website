@@ -78,6 +78,11 @@
     background: rgb(7, 75, 143);
 }
 
+.username-input {
+    height: 1px;
+    width: 128px;
+}
+
 .back-button {
     width: 200px;
 }

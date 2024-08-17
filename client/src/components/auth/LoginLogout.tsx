@@ -19,14 +19,11 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
       const userEmail = response.user.email || "";
 
       // Check if the email ends with the allowed domain
-      if (userEmail.endsWith("@brown.edu") || userEmail.endsWith("@students.clover.k12.sc.us")) {
+      if (userEmail.split("@")[1] === process.env.USER_EMAIL || userEmail === process.env.ADMIN_EMAIL) {
         console.log(response.user.uid);
         // add unique user id as a cookie to the browser.
         addLoginCookie(response.user.uid);
         props.setLogin(true);
-        if (userEmail == "ashton_glove@brown.edu") {
-          props.setAdmin(true);
-        }
       } else {
         // User is not allowed, sign them out and show a message
         await auth.signOut();

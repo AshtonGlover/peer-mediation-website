@@ -10,7 +10,6 @@ import java.io.IOException;
 import spark.Filter;
 import spark.Spark;
 
-/** Top Level class for our project, utilizes spark to create and maintain our server. */
 public class Server {
 
   public static void setUpServer() {

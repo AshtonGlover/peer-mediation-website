@@ -29,6 +29,7 @@ public class GetCookiesHandler implements Route {
             List<String> cookies = vals.stream().map(word -> word.get("cookie").toString()).toList();
             List<String> finalCookies = new ArrayList<>();
             Set<String> cookiesSet = new HashSet<>();
+            List<Boolean> hasReplied = new ArrayList<>();
 
             if (cookies.size() == 0) {
                 responseMap.put("response_type", "success");
@@ -42,6 +43,16 @@ public class GetCookiesHandler implements Route {
                 if (!cookiesSet.contains(splitCookie)) {
                     cookiesSet.add(splitCookie);
                     finalCookies.add(currCookie);
+                    List<Map<String, Object>> rawMessages =
+                            this.storageHandler.getCollection(splitCookie, "words");
+                    int numMessages = rawMessages.size();
+                    String lastMessage = rawMessages.get(numMessages - 1).get("word").toString();
+                    System.out.println(lastMessage);
+                    if (lastMessage.startsWith("Peer Mediator:")) {
+                        hasReplied.add(true);
+                    } else {
+                        hasReplied.add(false);
+                    }
                 }
             }
 
@@ -49,6 +60,7 @@ public class GetCookiesHandler implements Route {
 
             responseMap.put("response_type", "success");
             responseMap.put("cookies", finalCookies);
+            responseMap.put("hasReplied", hasReplied);
         } catch (Exception e) {
             // error likely occurred in the storage handler
             e.printStackTrace();
