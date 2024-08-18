@@ -1,6 +1,6 @@
 import { getLoginCookie } from "./cookie";
 
-const HOST = "http://localhost:3232";
+const HOST = "http://localhost:8080";
 
 async function queryAPI(
   endpoint: string,

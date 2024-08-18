@@ -13,7 +13,7 @@ import spark.Spark;
 public class Server {
 
   public static void setUpServer() {
-    int port = 3232;
+    int port = 8080;
     Spark.port(port);
 
     after(
