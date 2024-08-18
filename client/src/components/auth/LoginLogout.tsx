@@ -18,14 +18,11 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
       const response = await signInWithPopup(auth, new GoogleAuthProvider());
       const userEmail = response.user.email || "";
 
-      // Check if the email ends with the allowed domain
       if (userEmail.split("@")[1] === process.env.USER_EMAIL || userEmail === process.env.ADMIN_EMAIL) {
         console.log(response.user.uid);
-        // add unique user id as a cookie to the browser.
         addLoginCookie(response.user.uid);
         props.setLogin(true);
       } else {
-        // User is not allowed, sign them out and show a message
         await auth.signOut();
         console.log("User not allowed. Signed out.");
       }
@@ -40,15 +37,19 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
   };
 
   return (
-    <div className="login-box">
+    <div aria-label="login box" className="login-box">
       <h1>CHS Peer Mediation: Login Page</h1>
       
-      <div className="image">
-        <img src="https://cmsv2-assets.apptegy.net/uploads/21138/logo/23952/Clover_HS_Logo.png"></img>
+      <div aria-label="image" className="image">
+        <img 
+          aria-label="Clover High School Image" 
+          src="https://cmsv2-assets.apptegy.net/uploads/21138/logo/23952/Clover_HS_Logo.png">
+        </img>
       </div>
       
-      <div className="button-container">
+      <div aria-label="button container" className="button-container">
         <button
+          aria-label="sign in with google"
           className="google-login-button"
           onClick={() => signInWithGoogle()}
           disabled={props.loggedIn}
@@ -57,6 +58,7 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
         </button>
         
         <button
+          aria-label="admin login button"
           className="admin-login-button"
           onClick={() => adminClicked()}
           disabled={props.loggedIn}
@@ -78,8 +80,8 @@ const Logout: React.FunctionComponent<ILoginPageProps> = (props) => {
   };
 
   return (
-    <div className="logout-box">
-      <button className="SignOut" onClick={() => signOut()}>
+    <div aria-label="logout box" className="logout-box">
+      <button aria-label="sign out" className="SignOut" onClick={() => signOut()}>
         Sign Out
       </button>
     </div>

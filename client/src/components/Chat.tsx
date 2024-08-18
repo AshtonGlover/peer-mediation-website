@@ -1,9 +1,8 @@
 import React from 'react';
 import "../styles/Chat.css"
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import {addWord, getWords, addCookie} from "../utils/api"
 import { getLoginCookie } from '../utils/cookie';
-import AdminDashboard from './auth/AdminDashboard'
 
 export interface adminData {
     isAdmin: boolean;
@@ -46,7 +45,7 @@ const Chat: React.FunctionComponent<adminData> = (props) => {
     return (
         <div className="chat-page">
             <h1>Chat Page</h1>
-                <div className="text-scroll" id="text-scroll">
+                <div className="text-scroll" id="text-scroll" aria-label="text-scroll">
                     {messages.map((message, index) => {
                         let backgroundColor;
 
@@ -59,15 +58,16 @@ const Chat: React.FunctionComponent<adminData> = (props) => {
                         scroll();
 
                         return (
-                            <div key={index} className="message" style={{ backgroundColor: backgroundColor }}>
+                            <div aria-label="message" key={index} className="message" style={{ backgroundColor: backgroundColor }}>
                                 {message}
                             </div>
                         );
                     })}
                 </div>
-            <div className="form-group">
+            <div className="form-group" aria-label="form-group">
                 <label htmlFor="message">Message: </label>
                 <input
+                    aria-label="Type message here"
                     placeholder='Type message here'
                     type="text"
                     id="message"
@@ -78,7 +78,9 @@ const Chat: React.FunctionComponent<adminData> = (props) => {
                     }}
                 />
                 <button
-                    id='send-button'
+                    aria-label="send-button"
+                    className="send-button"
+                    id="send-button"
                     onClick={() => {
                         const newMessage = (document.getElementById("message") as HTMLInputElement).value;
                         if (newMessage === "") {

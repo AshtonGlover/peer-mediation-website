@@ -7,6 +7,7 @@
     animation: gradientAnimation 16s ease infinite;
     font-family: 'Courier New', Courier, monospace;
     color: #ffffff;
+    max-height: 700px;
   }
 
   @keyframes gradientAnimation {
@@ -31,6 +32,7 @@
     flex-direction: column;
     align-items: flex-end; 
     scroll-behavior: smooth;
+    max-height: 500px;
 }
 
 .form-group {
@@ -72,4 +74,8 @@ button:hover {
     font-family: 'Courier New', Courier, monospace;
     color: white;
     font-weight: bolder;
+}
+
+.send-button {
+    border-radius: 5px;
 }

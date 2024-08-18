@@ -49,10 +49,8 @@ public class FirebaseUtilities implements StorageInterface {
     Firestore db = FirestoreClient.getFirestore();
     CollectionReference dataRef = db.collection("users").document(uid).collection(collection_id);
 
-    // 2: Get pin documents
     QuerySnapshot dataQuery = dataRef.get().get();
 
-    // 3: Get data from document queries
     List<Map<String, Object>> data = new ArrayList<>();
     for (QueryDocumentSnapshot doc : dataQuery.getDocuments()) {
       data.add(doc.getData());
@@ -70,11 +68,9 @@ public class FirebaseUtilities implements StorageInterface {
     Firestore db = FirestoreClient.getFirestore();
     CollectionReference dataRef = db.collection("users");
 
-    // 2: Get pin documents
     ApiFuture<QuerySnapshot> future = dataRef.get();
     QuerySnapshot dataQuery = future.get();
 
-    // 3: Get data from document queries
     List<Map<String, Object>> data = new ArrayList<>();
     for (QueryDocumentSnapshot doc : dataQuery.getDocuments()) {
       data.add(doc.getData());
@@ -93,11 +89,9 @@ public class FirebaseUtilities implements StorageInterface {
 
 
     Firestore db = FirestoreClient.getFirestore();
-    // 1: Get a ref to the collection that you created
     CollectionReference collectionRef =
         db.collection("users").document(uid).collection(collection_id);
 
-    // 2: Write data to the collection ref
     collectionRef.document(doc_id).set(data);
   }
 
@@ -112,11 +106,9 @@ public class FirebaseUtilities implements StorageInterface {
 
 
     Firestore db = FirestoreClient.getFirestore();
-    // 1: Get a ref to the collection that you created
     CollectionReference collectionRef =
             db.collection("users").document("cookies").collection("cookies");
 
-    // 2: Write data to the collection ref
     collectionRef.document(doc_id).delete();
   }
 
@@ -129,9 +121,7 @@ public class FirebaseUtilities implements StorageInterface {
     try {
       // removes all data for user 'uid'
       Firestore db = FirestoreClient.getFirestore();
-      // 1: Get a ref to the user document
       DocumentReference userDoc = db.collection("users").document(uid);
-      // 2: Delete the user document
       deleteDocument(userDoc);
     } catch (Exception e) {
       System.err.println("Error removing user : " + uid);
@@ -140,12 +130,10 @@ public class FirebaseUtilities implements StorageInterface {
   }
 
   private void deleteDocument(DocumentReference doc) {
-    // for each subcollection, run deleteCollection()
     Iterable<CollectionReference> collections = doc.listCollections();
     for (CollectionReference collection : collections) {
       deleteCollection(collection);
     }
-    // then delete the document
     doc.delete();
   }
 
@@ -163,8 +151,6 @@ public class FirebaseUtilities implements StorageInterface {
         doc.getReference().delete();
       }
 
-      // NOTE: the query to documents may be arbitrarily large. A more robust
-      // solution would involve batching the collection.get() call.
     } catch (Exception e) {
       System.err.println("Error deleting collection : " + e.getMessage());
     }

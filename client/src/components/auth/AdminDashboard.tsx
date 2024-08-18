@@ -4,12 +4,6 @@ import "../../styles/AdminDashboard.css"
 import { getCookies } from '../../utils/api';
 import { useEffect} from "react";
 import Chat from "../Chat";
-import {addToMap, getHasReplied} from "../CookieMap";
-
-enum Section {
-  ADMIN_DASHBOARD = "ADMIN_DASHBOARD",
-  CHAT = "CHAT"
-}
 
 const AdminDashboard: React.FunctionComponent = () => {
   const [username, setUsername] = useState('');
@@ -45,7 +39,7 @@ const AdminDashboard: React.FunctionComponent = () => {
   if (isAuthenticated) {
     if (activeChat !== ""){
       return(
-        <div>
+        <div className='admin-chat'>
           <Chat isAdmin={true} uid={activeChat} />
           <div className = "button-page">
             <button className = "back-button" onClick={() => handleBackPressed()}> Back </button>
@@ -69,10 +63,11 @@ const AdminDashboard: React.FunctionComponent = () => {
             }
 
             return (
-              <div key={index} className="message">
+              <div key={index} aria-label="message" className="message">
                 <button 
                   style={{ backgroundColor: backgroundColor }} 
-                  className = "email" 
+                  className = "email"
+                  aria-label = "email" 
                   onClick={() => setActiveChat(cookie.split("@")[0])}>
                     {prefix + ": New message on " + cookie.split("@")[1].split(" ")[0] + " at " + 
                     cookie.split("@")[1].split(" ")[1] + " " + cookie.split("@")[1].split(" ")[2]}

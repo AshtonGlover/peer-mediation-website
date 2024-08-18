@@ -16,7 +16,7 @@ initializeApp(firebaseConfig);
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" aria-label="App">
       <AuthRoute gatedContent={<HomePage />} />
       
     </div>

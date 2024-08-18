@@ -18,6 +18,12 @@
     color: white;
 }
 
+.admin-chat {
+    background-color: rgb(7, 75, 143);
+    min-height: 100vh; 
+    width: 100%; 
+}
+
 @keyframes gradientAnimation {
     0% {
         background-position: 0% 50%;
@@ -84,7 +90,8 @@
 }
 
 .back-button {
-    width: 200px;
+    width: 100px;
+    border-radius: 5px;
 }
 
 .admin-login button:hover {
