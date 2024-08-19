@@ -16,7 +16,7 @@ public class Server {
     Spark.after(
         (Filter)
             (request, response) -> {
-              response.header("Access-Control-Allow-Origin", "http://localhost:8000");
+              response.header("Access-Control-Allow-Origin", "https://peer-mediation.github.io");
               response.header("Access-Control-Allow-Methods", "*");
             });
 

@@ -21,6 +21,7 @@ public class AddWordHandler implements Route {
     if (!OriginVerifier.isAccessAllowed(request, responseMap)) {
       return responseMap;
     }
+
     try {
       // collect parameters from the request
       String uid = request.queryParams("uid");

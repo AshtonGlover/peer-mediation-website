@@ -7,7 +7,8 @@ public class OriginVerifier {
 
   public static boolean isAccessAllowed(Request request, Map<String, Object> responseMap) {
     String origin = request.headers("Origin");
-    if (origin == null || !origin.equals("http://localhost:8000")) {
+    System.out.println(origin);
+    if (origin == null || !origin.equals("https://peer-mediation.github.io")) {
       responseMap.put("access denied", origin + " is an invalid origin");
       return false;
     }

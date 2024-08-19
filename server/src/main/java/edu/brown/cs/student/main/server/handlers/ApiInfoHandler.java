@@ -25,6 +25,7 @@ public class ApiInfoHandler implements Route {
 
     try {
       String uid = request.queryParams("uid");
+      System.out.println(uid);
 
       List<Map<String, Object>> apiInfo = this.storageHandler.getCollection(uid, "apiInfo");
 
