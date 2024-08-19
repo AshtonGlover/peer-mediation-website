@@ -1,7 +1,5 @@
 package edu.brown.cs.student.main.server;
 
-import static spark.Spark.after;
-
 import edu.brown.cs.student.main.server.handlers.*;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
@@ -32,6 +30,8 @@ public class Server {
           Spark.get("clear-user", new ClearUserHandler(firebaseUtils));
           Spark.get("add-cookie", new AddCookieHandler(firebaseUtils));
           Spark.get("get-cookies", new GetCookiesHandler(firebaseUtils));
+          Spark.get("get-admin-login", new AdminLoginHandler(firebaseUtils));
+          Spark.get("get-api-info", new ApiInfoHandler(firebaseUtils));
           Spark.get("health", ((request, response) -> "Running"));
 
           Spark.notFound(

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from "react";
 import "../../styles/AdminDashboard.css"
-import { getCookies } from '../../utils/api';
+import { getCookies, getAdminLogin } from '../../utils/api';
 import { useEffect} from "react";
 import Chat from "../Chat";
 
@@ -27,12 +27,14 @@ const AdminDashboard: React.FunctionComponent = () => {
   };
 
   const handleLogin = () => {
-    if (username === process.env.ADMIN_USERNAME && password === process.env.ADMIN_PASSWORD) {
-      setIsAuthenticated(true);
-      setErrorMessage('');
-    } else {
-      setErrorMessage('Invalid username or password. Please try again.');
-    }
+    getAdminLogin().then((data) => {
+      if (username === data.username && password === data.password) {
+        setIsAuthenticated(true);
+        setErrorMessage('');
+      } else {
+        setErrorMessage('Invalid username or password. Please try again.');
+      }
+    });
   };
 
 

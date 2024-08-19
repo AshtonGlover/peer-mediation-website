@@ -18,7 +18,7 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
       const response = await signInWithPopup(auth, new GoogleAuthProvider());
       const userEmail = response.user.email || "";
 
-      if (userEmail.split("@")[1] === process.env.USER_EMAIL || userEmail === process.env.ADMIN_EMAIL) {
+      if (userEmail.endsWith("clover.k12.sc.us") || userEmail.endsWith("ver@brown.edu")) {
         console.log(response.user.uid);
         addLoginCookie(response.user.uid);
         props.setLogin(true);

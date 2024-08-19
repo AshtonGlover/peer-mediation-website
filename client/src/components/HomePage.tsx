@@ -8,7 +8,12 @@ enum Section {
   CHAT = "CHAT"
 }
 
-export default function MapsGearup() {
+/**
+ * This is the HomePage component. It is the first component a user sees upon loggin in with Google.
+ * By default, it will display the about us page as well as a button to go to the chat page, and allows
+ * for switching back and forth between these two components. 
+ */
+export default function HomePage() {
   const [section, setSection] = useState<Section>(Section.ABOUT_US);
 
   const setChatButton = () => {

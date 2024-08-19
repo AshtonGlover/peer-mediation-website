@@ -2,23 +2,48 @@ import { initializeApp } from "firebase/app";
 import "../styles/App.css";
 import HomePage from "./HomePage";
 import AuthRoute from "./auth/AuthRoute";
-
-const firebaseConfig = {
-  apiKey: process.env.API_KEY,
-  authDomain: process.env.AUTH_DOMAIN,
-  projectId: process.env.PROJECT_ID,
-  storageBucket: process.env.STORAGE_BUCKET,
-  messagingSenderId: process.env.MESSAGING_SENDER_ID,
-  appId: process.env.APP_ID
-};
-
-initializeApp(firebaseConfig);
+import { getAPIInfo } from "../utils/api";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [firebaseInitialized, setFirebaseInitialized] = useState(false);
+
+  useEffect(() => {
+    const firebaseConfig = {
+      apiKey: "",
+      authDomain: "",
+      projectId: "",
+      storageBucket: "",
+      messagingSenderId: "",
+      appId: ""
+    };
+
+    getAPIInfo().then((data) => {
+      firebaseConfig.apiKey = data.apiKey;
+      firebaseConfig.authDomain = data.authDomain;
+      firebaseConfig.projectId = data.projectID;
+      firebaseConfig.storageBucket = data.storageBucket;
+      firebaseConfig.messagingSenderId = data.messagingSenderID;
+      firebaseConfig.appId = data.appId;
+
+      initializeApp(firebaseConfig);
+      setFirebaseInitialized(true);
+    }).catch(error => {
+      console.error("Error fetching API info:", error);
+    });
+  }, []);
+
+  if (!firebaseInitialized) {
+    return (
+      <div aria-label="loading page" className="loading-container">
+        <div aria-label="loading" className="loading"></div>
+      </div>
+    );
+  }
+
   return (
     <div className="App" aria-label="App">
       <AuthRoute gatedContent={<HomePage />} />
-      
     </div>
   );
 }

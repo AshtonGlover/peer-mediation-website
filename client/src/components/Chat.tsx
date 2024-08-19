@@ -9,17 +9,27 @@ export interface adminData {
     uid: string | null;
 }
 
+/**
+ * This is the Chat component of this application. This creates a chatbox that allows users to
+ * communicate with each other. All message history is loaded from the backend, and users can send
+ * new messages via the text input box. 
+ * @param props the props are used to determine if the user should be considered an admin or not
+ * upon rendering
+ * @returns 
+ */
 const Chat: React.FunctionComponent<adminData> = (props) => {
     const [messages, setMessages] = useState<string[]>([]);
 
     const USER_ID = (props.uid === null) ? getLoginCookie() || "" : props.uid;
 
+    //use effect hook to get the messages from the backend and set the state variable
     useEffect(() => {
         getWords(USER_ID).then((data) => {
             setMessages(data.words)
         });
     }, []);
 
+    //function designed to make the chat box scroll to the bottom upon rendering
     const scroll = () => {
         let scrollBox = document.getElementById("text-scroll");
                         
@@ -28,6 +38,8 @@ const Chat: React.FunctionComponent<adminData> = (props) => {
         }
     };
 
+    //function to send the message that the user inputs to the backend and display the message
+    //on the frontend
     const handleSendMessage = async (newMessage: string) => {
         if (props.isAdmin) {
             newMessage = "Peer Mediator: " + newMessage;
