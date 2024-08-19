@@ -12,7 +12,16 @@ const AdminDashboard: React.FunctionComponent = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [cookies, setCookies] = useState<string[]>([]);
   const [hasReplied, setHasReplied] = useState<boolean[]>([]);
-  const [activeChat, setActiveChat] = useState("");
+  const [activeChat, setActiveChat] = useState('');
+  const [adminUsername, setAdminUsername] = useState('');
+  const [adminPassword, setAdminPassword] = useState('');
+
+  useEffect(() => {
+    getAdminLogin().then((data) => {
+      setAdminUsername(data.username);
+      setAdminPassword(data.password);
+    });
+  });
 
   useEffect(() => {
       getCookies().then((data) => {
@@ -27,16 +36,13 @@ const AdminDashboard: React.FunctionComponent = () => {
   };
 
   const handleLogin = () => {
-    getAdminLogin().then((data) => {
-      if (username === data.username && password === data.password) {
-        setIsAuthenticated(true);
-        setErrorMessage('');
-      } else {
-        setErrorMessage('Invalid username or password. Please try again.');
-      }
-    });
+    if (username === adminUsername && password === adminPassword) {
+      setIsAuthenticated(true);
+      setErrorMessage('');
+    } else {
+      setErrorMessage('Invalid username or password. Please try again.');
+    }
   };
-
 
   if (isAuthenticated) {
     if (activeChat !== ""){

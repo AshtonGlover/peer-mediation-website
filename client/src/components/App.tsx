@@ -35,8 +35,10 @@ function App() {
 
   if (!firebaseInitialized) {
     return (
-      <div aria-label="loading page" className="loading-container">
-        <div aria-label="loading" className="loading"></div>
+      <div>
+        <div aria-label="loading page" className="loading-container">
+          <div aria-label="loading" className="loading"></div>
+        </div>
       </div>
     );
   }

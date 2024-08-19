@@ -1,8 +1,8 @@
 import { getLoginCookie } from "./cookie";
 
 //backend to be queried
-const HOST = "http://localhost:8080"; 
-//const HOST = "http://peer-mediation-api.us-east-1.elasticbeanstalk.com"
+// const HOST = "http://localhost:8080"; 
+const HOST = "http://peer-mediation-api.us-east-1.elasticbeanstalk.com"
 
 /**
  * This general function makes a query to the backend specified by the endpoint and appropriate
