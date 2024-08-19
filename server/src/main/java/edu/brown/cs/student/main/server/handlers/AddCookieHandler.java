@@ -2,6 +2,8 @@ package edu.brown.cs.student.main.server.handlers;
 
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
@@ -28,11 +30,16 @@ public class AddCookieHandler implements Route {
   @Override
   public Object handle(Request request, Response response) {
     Map<String, Object> responseMap = new HashMap<>();
+    String origin = request.headers("Origin");
+    if (origin == null || !origin.equals("http://localhost:8000")) {
+      responseMap.put("access denied", "invalid origin");
+      return responseMap;
+    }
     try {
       // collect parameters from the request
       String uid = "cookies";
       String cookie = request.queryParams("cookie");
-      LocalDateTime now = LocalDateTime.now();
+      ZonedDateTime now = ZonedDateTime.now(ZoneId.of("America/New_York"));
 
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm");
       String formattedDateTime = now.format(formatter);

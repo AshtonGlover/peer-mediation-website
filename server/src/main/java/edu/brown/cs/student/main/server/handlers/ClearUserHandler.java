@@ -25,6 +25,11 @@ public class ClearUserHandler implements Route {
   @Override
   public Object handle(Request request, Response response) {
     Map<String, Object> responseMap = new HashMap<>();
+    String origin = request.headers("Origin");
+    if (origin == null || !origin.equals("http://localhost:8000")) {
+      responseMap.put("access denied", "invalid origin");
+      return responseMap;
+    }
     try {
       String uid = request.queryParams("uid");
 

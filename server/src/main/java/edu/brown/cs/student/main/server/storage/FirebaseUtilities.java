@@ -21,30 +21,12 @@ import java.util.concurrent.ExecutionException;
 public class FirebaseUtilities implements StorageInterface {
 
   public FirebaseUtilities() throws IOException {
-
-    //    String workingDirectory = System.getProperty("user.dir");
-    //    System.out.println(workingDirectory);
-    //    Path firebaseConfigPath =
-    //        Paths.get("src", "main", "resources", "firebase_config.json");
-    //
-    //    System.out.println(firebaseConfigPath);
-    //
-    //    FileInputStream serviceAccount = new FileInputStream(firebaseConfigPath.toString());
-    //
-    //    FirebaseOptions options =
-    //        new FirebaseOptions.Builder()
-    //            .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-    //            .build();
-    //
-    //    FirebaseApp.initializeApp(options);
-
     InputStream serviceAccount = getClass().getResourceAsStream("/firebase_config.json");
 
     if (serviceAccount == null) {
       throw new FileNotFoundException("firebase_config.json not found in classpath");
     }
 
-    // Initialize Firebase with the credentials from the service account
     FirebaseOptions options =
         new FirebaseOptions.Builder()
             .setCredentials(GoogleCredentials.fromStream(serviceAccount))
