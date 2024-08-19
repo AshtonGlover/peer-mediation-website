@@ -18,9 +18,7 @@ public class AddWordHandler implements Route {
   @Override
   public Object handle(Request request, Response response) {
     Map<String, Object> responseMap = new HashMap<>();
-    String origin = request.headers("Origin");
-    if (origin == null || !origin.equals("http://localhost:8000")) {
-      responseMap.put("access denied", "invalid origin");
+    if (!OriginVerifier.isAccessAllowed(request, responseMap)) {
       return responseMap;
     }
     try {
