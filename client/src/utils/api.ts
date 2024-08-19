@@ -1,6 +1,7 @@
 import { getLoginCookie } from "./cookie";
 
-const HOST = "http://localhost:8080";
+// const HOST = "http://localhost:8080";
+const HOST = "http://peer-mediation-api.us-east-1.elasticbeanstalk.com"
 
 async function queryAPI(
   endpoint: string,

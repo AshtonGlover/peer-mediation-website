@@ -15,13 +15,6 @@ public class AddWordHandler implements Route {
     this.storageHandler = storageHandler;
   }
 
-  /**
-   * Invoked when a request is made on this route's corresponding path e.g. '/hello'
-   *
-   * @param request The request object providing information about the HTTP request
-   * @param response The response object providing functionality for modifying the response
-   * @return The content to be set in the response
-   */
   @Override
   public Object handle(Request request, Response response) {
     Map<String, Object> responseMap = new HashMap<>();
@@ -36,7 +29,7 @@ public class AddWordHandler implements Route {
       System.out.println("adding word: " + word + " for user: " + uid);
 
       // get the current word count to make a unique word_id by index.
-      int wordCount = this.storageHandler.getCollection(uid,"words").size() + 1000000;
+      int wordCount = this.storageHandler.getCollection(uid, "words").size() + 1000000;
       String wordId = "word-" + wordCount;
 
       // use the storage handler to add the document to the database

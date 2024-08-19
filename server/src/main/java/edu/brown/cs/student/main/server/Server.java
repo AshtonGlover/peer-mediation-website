@@ -6,7 +6,6 @@ import edu.brown.cs.student.main.server.handlers.*;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import java.io.IOException;
-
 import spark.Filter;
 import spark.Spark;
 
@@ -27,11 +26,13 @@ public class Server {
     try {
       firebaseUtils = new FirebaseUtilities();
 
+      Spark.get("/", (request, response) -> "Peer Mediation Backend");
       Spark.get("add-word", new AddWordHandler(firebaseUtils));
       Spark.get("list-words", new ListWordsHandler(firebaseUtils));
       Spark.get("clear-user", new ClearUserHandler(firebaseUtils));
       Spark.get("add-cookie", new AddCookieHandler(firebaseUtils));
       Spark.get("get-cookies", new GetCookiesHandler(firebaseUtils));
+      Spark.get("health", ((request, response) -> "Running"));
 
       Spark.notFound(
           (request, response) -> {

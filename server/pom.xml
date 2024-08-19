@@ -94,6 +94,41 @@
         </configuration>
       </plugin>
 
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.2.4</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <phase>package</phase>
+            <configuration>
+              <filters>
+                <filter>
+                  <artifact>*:*</artifact>
+                  <excludes>
+                    <exclude>META-INF/*.SF</exclude>
+                    <exclude>META-INF/*.DSA</exclude>
+                    <exclude>META-INF/*.RSA</exclude>
+                  </excludes>
+                </filter>
+              </filters>
+              <transformers>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>edu.brown.cs.student.main.server.Server</mainClass>
+                </transformer>
+                <!-- Add a transformer for resources if needed -->
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+              </transformers>
+              <shadedArtifactAttached>true</shadedArtifactAttached>
+              <shadedClassifierName>jackofall</shadedClassifierName>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
       <!--
             We use Spotless to automate style checking and code formatting.
       -->

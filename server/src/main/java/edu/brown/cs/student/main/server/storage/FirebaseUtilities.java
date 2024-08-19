@@ -10,12 +10,9 @@ import com.google.cloud.firestore.QuerySnapshot;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
-import kotlin.text.UStringsKt;
-
-import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -25,12 +22,29 @@ public class FirebaseUtilities implements StorageInterface {
 
   public FirebaseUtilities() throws IOException {
 
-    String workingDirectory = System.getProperty("user.dir");
-    Path firebaseConfigPath =
-        Paths.get(workingDirectory, "src", "main", "resources", "firebase_config.json");
+    //    String workingDirectory = System.getProperty("user.dir");
+    //    System.out.println(workingDirectory);
+    //    Path firebaseConfigPath =
+    //        Paths.get("src", "main", "resources", "firebase_config.json");
+    //
+    //    System.out.println(firebaseConfigPath);
+    //
+    //    FileInputStream serviceAccount = new FileInputStream(firebaseConfigPath.toString());
+    //
+    //    FirebaseOptions options =
+    //        new FirebaseOptions.Builder()
+    //            .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+    //            .build();
+    //
+    //    FirebaseApp.initializeApp(options);
 
-    FileInputStream serviceAccount = new FileInputStream(firebaseConfigPath.toString());
+    InputStream serviceAccount = getClass().getResourceAsStream("/firebase_config.json");
 
+    if (serviceAccount == null) {
+      throw new FileNotFoundException("firebase_config.json not found in classpath");
+    }
+
+    // Initialize Firebase with the credentials from the service account
     FirebaseOptions options =
         new FirebaseOptions.Builder()
             .setCredentials(GoogleCredentials.fromStream(serviceAccount))
@@ -60,7 +74,7 @@ public class FirebaseUtilities implements StorageInterface {
   }
 
   public List<Map<String, Object>> getCookies(String uid, String collection_id)
-          throws InterruptedException, ExecutionException, IllegalArgumentException {
+      throws InterruptedException, ExecutionException, IllegalArgumentException {
     if (uid == null || collection_id == null) {
       throw new IllegalArgumentException("getCollection: uid and/or collection_id cannot be null");
     }
@@ -87,7 +101,6 @@ public class FirebaseUtilities implements StorageInterface {
           "addDocument: uid, collection_id, doc_id, or data cannot be null");
     }
 
-
     Firestore db = FirestoreClient.getFirestore();
     CollectionReference collectionRef =
         db.collection("users").document(uid).collection(collection_id);
@@ -95,19 +108,18 @@ public class FirebaseUtilities implements StorageInterface {
     collectionRef.document(doc_id).set(data);
   }
 
-
   @Override
-  public void removeDocument(String uid, String collection_id, String doc_id, Map<String, Object> data)
-          throws IllegalArgumentException {
+  public void removeDocument(
+      String uid, String collection_id, String doc_id, Map<String, Object> data)
+      throws IllegalArgumentException {
     if (uid == null || collection_id == null || doc_id == null || data == null) {
       throw new IllegalArgumentException(
-              "addDocument: uid, collection_id, doc_id, or data cannot be null");
+          "addDocument: uid, collection_id, doc_id, or data cannot be null");
     }
-
 
     Firestore db = FirestoreClient.getFirestore();
     CollectionReference collectionRef =
-            db.collection("users").document("cookies").collection("cookies");
+        db.collection("users").document("cookies").collection("cookies");
 
     collectionRef.document(doc_id).delete();
   }
