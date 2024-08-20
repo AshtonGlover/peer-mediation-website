@@ -20,9 +20,9 @@ public class VerifyAdminHandler implements Route {
     @Override
     public Object handle(Request request, Response response) {
         Map<String, Object> responseMap = new HashMap<>();
-//        if (!OriginVerifier.isAccessAllowed(request, responseMap)) {
-//            return responseMap;
-//        }
+        if (!OriginVerifier.isAccessAllowed(request, responseMap)) {
+            return responseMap;
+        }
 
         try {
             String username = request.queryParams("username");

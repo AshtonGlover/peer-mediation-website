@@ -78,21 +78,22 @@ export async function addCookie(cookie: string) {
 }
 
 /**
- * This function handles the get-admin-login endpoint and it retrieves the admin username and password
- * from the backend. 
- */
-export async function getAdminLogin() {
-  return await queryAPI("get-admin-login", {
-    uid: "admin",
-  });
-}
-
-/**
  * This function handles the retrieval of all the necessary information to initalize the firebase
  * from the backend
  */
 export async function getAPIInfo() {
   return await queryAPI("get-api-info", {
     uid: "api"
+  });
+}
+
+/**
+ * This function takes in a username and password as query parameters and determines if it is the
+ * correct username and password for admin login. 
+ */
+export async function verifyAdmin(username: string, password: string) {
+  return await queryAPI("verify-admin", {
+    username: username,
+    password: password
   });
 }

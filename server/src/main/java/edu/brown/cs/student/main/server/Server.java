@@ -30,7 +30,6 @@ public class Server {
       Spark.get("clear-user", new ClearUserHandler(firebaseUtils));
       Spark.get("add-cookie", new AddCookieHandler(firebaseUtils));
       Spark.get("get-cookies", new GetCookiesHandler(firebaseUtils));
-      Spark.get("get-admin-login", new AdminLoginHandler(firebaseUtils));
       Spark.get("get-api-info", new ApiInfoHandler(firebaseUtils));
       Spark.get("verify-admin", new VerifyAdminHandler(firebaseUtils));
       Spark.get("health", ((request, response) -> "Running"));
