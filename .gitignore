@@ -3,6 +3,7 @@
 resources/
 target/
 private/
+loginInfo/
 
 node_modules
 .pnp
