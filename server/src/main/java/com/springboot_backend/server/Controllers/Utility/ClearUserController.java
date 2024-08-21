@@ -1,6 +1,5 @@
-package com.springboot_backend.server.Controllers;
+package com.springboot_backend.server.Controllers.Utility;
 
-import com.springboot_backend.server.LoginInfo.LoginInfoRetriever;
 import com.springboot_backend.server.Storage.StorageInterface;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,33 +11,31 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-public class VerifyAdminController {
+public class ClearUserController {
     private StorageInterface storageHandler;
 
-    public VerifyAdminController(StorageInterface storageHandler) {
+    public ClearUserController(StorageInterface storageHandler) {
         this.storageHandler = storageHandler;
     }
 
     @CrossOrigin(origins = "https://peer-mediation.github.io")
-    @GetMapping("/verify-admin")
-    public Object verifyAdmin(@RequestParam(value = "username") String username,
-                              @RequestParam(value = "password") String password,
-                              HttpServletRequest request) {
+    @GetMapping("/clear-user")
+    public Object clearUser(@RequestParam(value = "uid", defaultValue = "") String uid, HttpServletRequest request) {
         Map<String, Object> responseMap = new HashMap<>();
         if (!OriginVerifier.isAccessAllowed(request, responseMap)) {
             return responseMap;
         }
 
         try {
-            if (username == null || password == null) {
-                responseMap.put("failure", "must specify query parameters");
-                return responseMap;
+            if (uid.equals("")) {
+                throw new Exception("must specify user to be cleared");
             }
+            System.out.println("clearing words for user: " + uid);
+            this.storageHandler.clearUser(uid);
 
-            responseMap.put("isVerified", username.equals(LoginInfoRetriever.username)
-                    && password.equals(LoginInfoRetriever.password));
-
+            responseMap.put("response_type", "success");
         } catch (Exception e) {
+            // error likely occurred in the storage handler
             e.printStackTrace();
             responseMap.put("response_type", "failure");
             responseMap.put("error", e.getMessage());

@@ -1,4 +1,4 @@
-package com.springboot_backend.server.Controllers;
+package com.springboot_backend.server.Controllers.Utility;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
