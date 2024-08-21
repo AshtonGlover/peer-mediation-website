@@ -10,6 +10,6 @@ public class IndexController {
     @GetMapping("/")
     @CrossOrigin(origins = "*")
     public String setInitialMessage() {
-        return "Peer mediation backend";
+        return "Welcome to the Peer Mediation backend server!";
     }
 }
