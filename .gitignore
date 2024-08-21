@@ -4,6 +4,7 @@ resources/
 target/
 private/
 loginInfo/
+test/
 
 node_modules
 .pnp
