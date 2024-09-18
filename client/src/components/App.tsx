@@ -9,12 +9,12 @@ function App() {
 
   useEffect(() => {
     const firebaseConfig = {
-      apiKey: "AIzaSyBN_RP2_N3TDMyTBml6ysgMLZXJP2Xa49Y",
-      authDomain: "peermediation-db.firebaseapp.com",
-      projectId: "peermediation-db",
-      storageBucket: "peermediation-db.appspot.com",
-      messagingSenderId: "698055007167",
-      appId: "1:698055007167:web:e4cb05405eeb34b409df0a"
+      apiKey: "AIzaSyCYoUkLZ05dMApIpQnJ-vZKjqzRQqSJRmE",
+      authDomain: "peer-mediation-db.firebaseapp.com",
+      projectId: "peer-mediation-db",
+      storageBucket: "peer-mediation-db.appspot.com",
+      messagingSenderId: "331558478532",
+      appId: "1:331558478532:web:e4736c2d849576f17d1f91"
     };
     initializeApp(firebaseConfig);
     setFirebaseInitialized(true);
