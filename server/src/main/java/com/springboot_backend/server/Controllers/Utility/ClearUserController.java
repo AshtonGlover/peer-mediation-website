@@ -18,7 +18,9 @@ public class ClearUserController {
         this.storageHandler = storageHandler;
     }
 
-    @CrossOrigin(origins = "https://peer-mediation.github.io")
+    //    @CrossOrigin(origins = "https://peer-mediation.github.io")
+//    @CrossOrigin(origins = "http://peermediation.s3-website.us-east-2.amazonaws.com")
+    @CrossOrigin(origins = "*")
     @GetMapping("/clear-user")
     public Object clearUser(@RequestParam(value = "uid", defaultValue = "") String uid, HttpServletRequest request) {
         Map<String, Object> responseMap = new HashMap<>();

@@ -1,4 +1,4 @@
-import "../styles/AboutUs.css"
+import "../styles/AboutUs.css";
 
 /**
  * React component to render the about us text. Allows for easy switching between this and the chat
@@ -7,7 +7,6 @@ import "../styles/AboutUs.css"
 export default function AboutUs() {
   return (
     <div aria-label="about-us" className="about-us">
-      {/* adding new words: */}
       <p aria-label="about-us-text" className = "about-us-text"> 
         This is the official website for the Clover High School Peer Mediation club. 
         The purpose of peer mediation is to assist students in resolving any conflicts that they 
@@ -18,18 +17,6 @@ export default function AboutUs() {
         Peer mediation provides a way to avoid bad habits when resolving conflicts and 
         allows students to talk to those will understand them the most, peers.
       </p>
-      {/* Clear words button */}
-      {/* <button
-        onClick={async () => {
-          // - query the backend to clear the user's words
-       
-          // - clear the user's words in the database
-          await clearUser();
-        }}
-      >
-        Clear words
-      </button> */}
-
     </div>
   );
 }

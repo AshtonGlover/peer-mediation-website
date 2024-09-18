@@ -8,6 +8,10 @@
     cursor: pointer;
 }
 
+.logo-box {
+    height: 300px
+}
+
 .login-box {
     display: flex;
     flex-direction: column;
