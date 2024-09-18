@@ -20,14 +20,12 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
 
   const signInWithGoogle = async () => {
     try {
-      // const response = await signInWithPopup(auth, new GoogleAuthProvider());
-      // const userEmail = response.user.email || "";
-      const userEmail = "ashton.glover@brown.edu"
+      const response = await signInWithPopup(auth, new GoogleAuthProvider());
+      const userEmail = response.user.email || "";
 
       if (userEmail.endsWith("clover.k12.sc.us") || userEmail.endsWith("ver@brown.edu")) {
-        // console.log(response.user.uid);
-        // addLoginCookie(response.user.uid);
-        addLoginCookie("hello");
+        console.log(response.user.uid);
+        addLoginCookie(response.user.uid);
         props.setLogin(true);
       } else {
         await auth.signOut();

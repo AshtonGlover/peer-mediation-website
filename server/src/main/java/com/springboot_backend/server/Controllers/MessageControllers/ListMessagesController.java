@@ -21,8 +21,8 @@ public class ListMessagesController {
     }
 
     //    @CrossOrigin(origins = "https://peer-mediation.github.io")
-//    @CrossOrigin(origins = "http://peermediation.s3-website.us-east-2.amazonaws.com")
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "http://peermediation.s3-website.us-east-2.amazonaws.com")
+//    @CrossOrigin(origins = "*")
     @GetMapping("/list-messages")
     public Object getCookies(@RequestParam(value = "uid", defaultValue = "") String uid, HttpServletRequest request) {
         Map<String, Object> responseMap = new HashMap<>();

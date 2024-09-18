@@ -22,8 +22,8 @@ public class VerifyAdminController {
     }
 
     //    @CrossOrigin(origins = "https://peer-mediation.github.io")
-//    @CrossOrigin(origins = "http://peermediation.s3-website.us-east-2.amazonaws.com")
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "http://peermediation.s3-website.us-east-2.amazonaws.com")
+//    @CrossOrigin(origins = "*")
     @GetMapping("/verify-admin")
     public Object verifyAdmin(@RequestParam(value = "username") String username,
                               @RequestParam(value = "password") String password,

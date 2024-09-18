@@ -22,8 +22,8 @@ public class AddMessageController {
     }
 
 //    @CrossOrigin(origins = "https://peer-mediation.github.io")
-//    @CrossOrigin(origins = "http://peermediation.s3-website.us-east-2.amazonaws.com")
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "http://peermediation.s3-website.us-east-2.amazonaws.com")
+//    @CrossOrigin(origins = "*")
     @GetMapping("/add-message")
     public Object sendMessage(@RequestParam(value = "uid", defaultValue = "") String uid,
                           @RequestParam(value = "message", defaultValue = "") String message,
