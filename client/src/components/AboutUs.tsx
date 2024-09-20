@@ -1,36 +1,12 @@
 import "../styles/AboutUs.css";
-import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, useGLTF } from '@react-three/drei';
-import { useRef, useEffect, useState } from "react";
-import * as THREE from 'three';
-
+import { Canvas } from '@react-three/fiber';
+import GLTFModel from './ThreeObjects/GLTFModel'
 
 /**
  * React component to render the about us text. Allows for easy switching between this and the chat
  * section. 
  */
 export default function AboutUs() {
-
-  const GLTFModel: React.FC<{ url: string }> = ({ url }) => {
-    const { scene } = useGLTF(url);
-    const modelRef = useRef<THREE.Group>(null);
-  
-    useEffect(() => {
-      if (modelRef.current) {
-        modelRef.current.rotation.x = -Math.PI / 2;
-        modelRef.current.position.set(0, -4, -2);
-      }
-    }, [scene]);
-  
-    useFrame(({ clock }) => {
-      if (modelRef.current) {
-        const time = clock.getElapsedTime(); 
-        modelRef.current.rotation.z = time; 
-      }
-    });
-  
-    return <primitive ref={modelRef} object={scene} />;
-  };
 
   return (
     <div aria-label="about-us" className="about-us">
@@ -82,7 +58,7 @@ export default function AboutUs() {
             castShadow 
           />
           <spotLight 
-            position={[0, -6, 0]}  // Positioned directly below the model
+            position={[0, -6, 0]}
             angle={1} 
             penumbra={0.5} 
             intensity={300} 
