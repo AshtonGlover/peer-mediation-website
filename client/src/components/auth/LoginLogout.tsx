@@ -6,6 +6,7 @@ import { Canvas } from "react-three-fiber";
 import { OrbitControls } from "@react-three/drei";
 import { useLoader } from "react-three-fiber";
 import { TextureLoader } from "three";
+import { isMobile } from "react-device-detect";
 
 export interface ILoginPageProps {
   loggedIn: boolean;
@@ -46,51 +47,48 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
       <h1>CHS Peer Mediation: Login Page</h1>
 
       <div className="logo-box">
-        <Canvas shadows>
-          <OrbitControls />
-          <ambientLight intensity={0.3} />
+        {!isMobile ? (
+          <Canvas shadows>
+            <OrbitControls />
+            <ambientLight intensity={0.3} />
 
-          <spotLight
-            position={[5, 10, 5]}
-            angle={0.8}        
-            penumbra={1}      
-            intensity={100}           
-            castShadow
-            shadow-mapSize-width={1024}
-            shadow-mapSize-height={1024}
-            shadow-bias={-0.0001}    
-          />
+            <spotLight
+              position={[5, 10, 5]}
+              angle={0.8}        
+              penumbra={1}      
+              intensity={100}              
+            />
 
-          <spotLight
-            position={[-5, 10, -5]}
-            angle={0.8}        
-            penumbra={1}      
-            intensity={100}           
-            castShadow
-            shadow-mapSize-width={1024}
-            shadow-mapSize-height={1024}
-            shadow-bias={-0.0001}    
-          />
+            <spotLight
+              position={[-5, 10, -5]}
+              angle={0.8}        
+              penumbra={1}      
+              intensity={100}            
+            />
 
-          <spotLight
-            position={[5, -10, 5]}
-            angle={0.8}        
-            penumbra={1}      
-            intensity={100}           
-            castShadow
-            shadow-mapSize-width={1024}
-            shadow-mapSize-height={1024}
-            shadow-bias={-0.0001}    
-          />
+            <spotLight
+              position={[5, -10, 5]}
+              angle={0.8}        
+              penumbra={1}      
+              intensity={100}            
+            />
 
-          <mesh position={[0, 0, 0]} castShadow receiveShadow rotation={[Math.PI / 4, Math.PI / 4, 0]}>
-            <boxGeometry args={[3.3, 3.3, 3.3]} attach="geometry" />
-            <meshStandardMaterial 
-              attach="material" 
-              color="#EEEEFF"  
-              map={texture}/>
-          </mesh>
-        </Canvas>
+            <mesh position={[0, 0, 0]} castShadow receiveShadow rotation={[Math.PI / 4, Math.PI / 4, 0]}>
+              <boxGeometry args={[3.3, 3.3, 3.3]} attach="geometry" />
+              <meshStandardMaterial 
+                attach="material" 
+                color="#EEEEFF"  
+                map={texture}/>
+            </mesh>
+          </Canvas>
+        ) : (
+          <div aria-label="image" className="image">
+            <img 
+              aria-label="Clover High School Image" 
+              src="https://cmsv2-assets.apptegy.net/uploads/21138/logo/23952/Clover_HS_Logo.png">
+            </img>
+          </div>
+        )}
       </div>
       
       <div aria-label="button container" className="button-container">
