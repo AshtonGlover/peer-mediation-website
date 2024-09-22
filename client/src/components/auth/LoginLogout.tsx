@@ -27,9 +27,8 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
       const userEmail = response.user.email || "";
 
       if (userEmail.endsWith("clover.k12.sc.us") || userEmail.endsWith("ver@brown.edu")) {
-        // console.log(response.user.uid);
-        // addLoginCookie(response.user.uid);
-        addLoginCookie("hello");
+        console.log(response.user.uid);
+        addLoginCookie(response.user.uid);
         props.setLogin(true);
       } else {
         await auth.signOut();
@@ -56,7 +55,7 @@ const RotatingCube = () => {
   });
 
   return (
-    <mesh ref={cubeRef} position={[0, 0, 0]} castShadow receiveShadow>
+    <mesh ref={cubeRef} position={[0, -0.2, 0]} castShadow receiveShadow>
       <boxGeometry args={[3.3, 3.3, 3.3]} attach="geometry" />
       <meshStandardMaterial attach="material" color="#EEEEFF" map={texture} />
     </mesh>
@@ -71,9 +70,9 @@ const RotatingCube = () => {
         {!isMobile ? (
           <Canvas shadows>
             <OrbitControls />
-            <ambientLight intensity={0.6} />
+            <ambientLight intensity={1} />
 
-            <spotLight
+            {/* <spotLight
               position={[5, 10, 5]}
               angle={0.8}        
               penumbra={1}      
@@ -95,7 +94,7 @@ const RotatingCube = () => {
               penumbra={1}      
               intensity={100}   
               castShadow         
-            />
+            /> */}
 
             {/* <mesh position={[0, 0, 0]} castShadow receiveShadow rotation={[Math.PI / 4, Math.PI / 4, 0]}>
               <boxGeometry args={[3.3, 3.3, 3.3]} attach="geometry" />
