@@ -59,7 +59,7 @@ const Chat: React.FunctionComponent<adminData> = (props) => {
             <h1>Chat Page</h1>
                 <div className="text-scroll" id="text-scroll" aria-label="text-scroll">
                     {messages.map((message, index) => {
-                        let backgroundColor;
+                        let backgroundColor: string;
 
                         if (message.includes("Peer Mediator")) {
                             backgroundColor = '#007bff';

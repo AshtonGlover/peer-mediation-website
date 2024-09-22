@@ -1,12 +1,14 @@
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import React from "react";
+import { useRef } from "react";
 import { addLoginCookie, removeLoginCookie } from "../../utils/cookie";
 import "../../styles/LoginLogout.css";
-import { Canvas } from "react-three-fiber";
+import { Canvas, useFrame } from "react-three-fiber";
 import { OrbitControls } from "@react-three/drei";
 import { useLoader } from "react-three-fiber";
 import { TextureLoader } from "three";
 import { isMobile } from "react-device-detect";
+import * as THREE from 'three';
 
 export interface ILoginPageProps {
   loggedIn: boolean;
@@ -17,7 +19,7 @@ export interface ILoginPageProps {
 
 const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
   const auth = getAuth();
-  const texture = useLoader(TextureLoader, 'https://cmsv2-assets.apptegy.net/uploads/21138/logo/23952/Clover_HS_Logo.png');
+  const texture = useLoader(TextureLoader, '/CHSLogo.png');
 
   const signInWithGoogle = async () => {
     try {
@@ -25,8 +27,9 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
       const userEmail = response.user.email || "";
 
       if (userEmail.endsWith("clover.k12.sc.us") || userEmail.endsWith("ver@brown.edu")) {
-        console.log(response.user.uid);
-        addLoginCookie(response.user.uid);
+        // console.log(response.user.uid);
+        // addLoginCookie(response.user.uid);
+        addLoginCookie("hello");
         props.setLogin(true);
       } else {
         await auth.signOut();
@@ -42,6 +45,24 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
       props.setLogin(true)
   };
 
+const RotatingCube = () => {
+  const cubeRef = useRef<THREE.Mesh>(null);
+
+  useFrame(() => {
+    if (cubeRef.current) {
+      cubeRef.current.rotation.x += 0.01;
+      cubeRef.current.rotation.y += 0.005;
+    }
+  });
+
+  return (
+    <mesh ref={cubeRef} position={[0, 0, 0]} castShadow receiveShadow>
+      <boxGeometry args={[3.3, 3.3, 3.3]} attach="geometry" />
+      <meshStandardMaterial attach="material" color="#EEEEFF" map={texture} />
+    </mesh>
+  );
+};
+
   return (
     <div aria-label="login box" className="login-box">
       <h1>CHS Peer Mediation: Login Page</h1>
@@ -50,42 +71,46 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
         {!isMobile ? (
           <Canvas shadows>
             <OrbitControls />
-            <ambientLight intensity={0.3} />
+            <ambientLight intensity={0.6} />
 
             <spotLight
               position={[5, 10, 5]}
               angle={0.8}        
               penumbra={1}      
-              intensity={100}              
+              intensity={200} 
+              castShadow             
             />
 
             <spotLight
               position={[-5, 10, -5]}
               angle={0.8}        
               penumbra={1}      
-              intensity={100}            
+              intensity={100} 
+              castShadow           
             />
 
             <spotLight
               position={[5, -10, 5]}
               angle={0.8}        
               penumbra={1}      
-              intensity={100}            
+              intensity={100}   
+              castShadow         
             />
 
-            <mesh position={[0, 0, 0]} castShadow receiveShadow rotation={[Math.PI / 4, Math.PI / 4, 0]}>
+            {/* <mesh position={[0, 0, 0]} castShadow receiveShadow rotation={[Math.PI / 4, Math.PI / 4, 0]}>
               <boxGeometry args={[3.3, 3.3, 3.3]} attach="geometry" />
-              <meshStandardMaterial 
+              <meshPhongMaterial 
                 attach="material" 
                 color="#EEEEFF"  
                 map={texture}/>
-            </mesh>
+            </mesh> */}
+            <RotatingCube/>
           </Canvas>
         ) : (
           <div aria-label="image" className="image">
             <img 
               aria-label="Clover High School Image" 
-              src="https://cmsv2-assets.apptegy.net/uploads/21138/logo/23952/Clover_HS_Logo.png">
+              src="/CHSLogo.png">
             </img>
           </div>
         )}
