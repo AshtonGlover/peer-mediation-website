@@ -10,6 +10,7 @@ const GLTFModel: React.FC<{ url: string }> = ({ url }) => {
     useEffect(() => {
       if (modelRef.current) {
         modelRef.current.rotation.x = -Math.PI / 2;
+        //modelRef.current.rotation.y = Math.PI / 2;
         modelRef.current.position.set(0, -4, -2);
       }
     }, [scene]);

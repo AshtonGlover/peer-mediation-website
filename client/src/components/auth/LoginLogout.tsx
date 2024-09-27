@@ -33,6 +33,7 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
       } else {
         await auth.signOut();
         console.log("User not allowed. Signed out.");
+        alert("You must use a Clover School District email address to sign in");
       }
     } catch (error) {
       console.log(error);
@@ -67,7 +68,7 @@ const RotatingCube = () => {
       <h1>CHS Peer Mediation: Login Page</h1>
 
       <div className="logo-box">
-        {!isMobile ? (
+        {/* {!isMobile ? ( */}
           <Canvas shadows>
             <OrbitControls />
             <ambientLight intensity={1} />
@@ -105,14 +106,14 @@ const RotatingCube = () => {
             </mesh> */}
             <RotatingCube/>
           </Canvas>
-        ) : (
+        {/* ) : (
           <div aria-label="image" className="image">
             <img 
               aria-label="Clover High School Image" 
               src="/CHSLogo.png">
             </img>
           </div>
-        )}
+        )} */}
       </div>
       
       <div aria-label="button container" className="button-container">
