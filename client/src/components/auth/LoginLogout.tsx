@@ -3,11 +3,9 @@ import React from "react";
 import { useRef } from "react";
 import { addLoginCookie, removeLoginCookie } from "../../utils/cookie";
 import "../../styles/LoginLogout.css";
-import { Canvas, useFrame } from "react-three-fiber";
+import { Canvas, useFrame, useLoader } from "react-three-fiber";
 import { OrbitControls } from "@react-three/drei";
-import { useLoader } from "react-three-fiber";
 import { TextureLoader } from "three";
-import { isMobile } from "react-device-detect";
 import * as THREE from 'three';
 
 export interface ILoginPageProps {
